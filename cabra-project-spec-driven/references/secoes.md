@@ -1,8 +1,18 @@
 # As 13 seções — definição, perguntas-guia e checklist de completude
 
-Para cada seção: o que ela precisa conter, as perguntas-guia usadas na Descoberta (Fase 2) para saber se está coberta, e o checklist usado na Análise de Lacunas (Fase 3) para calcular o score da seção. Um item do checklist conta como preenchido só se houver um fato concreto por trás — não uma frase vaga.
+Para cada seção: o que ela precisa conter, as perguntas-guia usadas na Descoberta (Fase 2) para saber se está coberta, e o checklist usado na Análise de Lacunas (Fase 3). O score usa só as seções 1 a 11. A Matriz de Rastreabilidade tem checklist de entrega, não de score. A Pontuação de Prontidão é gerada na Fase 5.
 
-IDs usados nas seções que geram itens rastreáveis: `RN-xxx` (Regra de Negócio), `RF-xxx` (Requisito Funcional), `CA-xxx` (Critério de Aceitação), `HU-xxx` (História de Usuário), `RNF-xxx` (Requisito Não Funcional), `DEP-xxx` (Dependência), `RISCO-xxx` (Risco). Numere sequencialmente a partir de 001 dentro de cada prefixo, por projeto.
+Um item conta como PREENCHIDO só com fato concreto do usuário, ou com um "não se aplica" / "não há" explícito dele, quando o porte permitir (abaixo). "Acho que sim" e "não sei" não fecham item. A fórmula e o portão estão em `pontuacao.md`.
+
+IDs: `RN-xxx`, `RF-xxx`, `CA-xxx`, `HU-xxx`, `RNF-xxx`, `DEP-xxx`, `RISCO-xxx`. Numere a partir de 001 dentro de cada prefixo, por projeto. As fontes de cada achado ficam nas notas de trabalho (`.descoberta/<slug>/descoberta.md`), não como item de score.
+
+## Profundidade por porte
+
+O porte não muda as 13 seções nem os pesos. Muda quando "não há" ou "não se aplica" conta como PREENCHIDO:
+
+- **Simples**: a frase do usuário fecha exceção de fluxo, fluxo alternativo, caso de borda, política externa, cálculo, SLA e dependência externa. Um único papel nomeado basta como persona.
+- **Médio**: a frase fecha política externa, cálculo, SLA e a dependência que ele apontar. Exceção de fluxo e fluxo de erro pedem descrição, ou um "não há" dito para aquele fluxo.
+- **Complexo**: política externa, segurança/privacidade e mitigação de risco de impacto alto só fecham com fato, ou com justificativa explícita de por que não se aplicam. "Acho que não" continua PARCIAL.
 
 ---
 
@@ -16,7 +26,7 @@ Checklist:
 - [ ] Problema/motivação declarado
 - [ ] Origem da demanda (quem pediu, e por quê)
 - [ ] Resultado esperado em uma frase
-- [ ] Porte do projeto (Simples/Médio/Complexo) e principais fontes de descoberta usadas
+- [ ] Porte do projeto definido (Simples/Médio/Complexo)
 
 ## 2. Meta SMART
 
@@ -40,7 +50,7 @@ Checklist:
 - [ ] Fluxo as-is descrito (ou declarado como "não existe hoje", se for processo novo)
 - [ ] Fluxo to-be descrito
 - [ ] Papéis/áreas envolvidas identificados
-- [ ] Principais exceções ou desvios do fluxo mapeados
+- [ ] Principais exceções ou desvios do fluxo mapeados, ou declarados inexistentes pelo usuário
 
 ## 4. Detalhes do Projeto
 
@@ -52,7 +62,7 @@ Checklist:
 - [ ] Escopo dentro do projeto listado
 - [ ] Escopo fora do projeto listado explicitamente (não deixar implícito)
 - [ ] Stakeholders e papéis mapeados
-- [ ] Restrições conhecidas (prazo, orçamento, tecnologia, time) registradas
+- [ ] Restrições conhecidas (prazo, orçamento, tecnologia, time) registradas, ou declaradas inexistentes pelo usuário
 
 ## 5. Regras de Negócio
 
@@ -61,10 +71,10 @@ O que é: as regras que restringem ou determinam o comportamento do sistema/proc
 Perguntas-guia: Existem limites de valor, quantidade ou tentativas? Existe critério de elegibilidade (quem pode/não pode)? Existe uma fórmula ou lógica de cálculo definida? Existe uma política (fiscal, de segurança, contratual) que o sistema precisa respeitar?
 
 Checklist (por regra identificada, e no agregado da seção):
-- [ ] Toda regra tem um ID `RN-xxx` e um enunciado verificável (não ambíguo)
-- [ ] Regras de elegibilidade/restrição cobertas
-- [ ] Regras de cálculo/lógica cobertas (se aplicável ao domínio)
-- [ ] Políticas externas (compliance, fiscal, segurança) cobertas, se relevantes ao domínio
+- [ ] Toda regra identificada tem um ID `RN-xxx` e um enunciado verificável (não ambíguo)
+- [ ] Regras de elegibilidade/restrição cobertas, ou declaradas não aplicáveis pelo usuário
+- [ ] Regras de cálculo/lógica cobertas, ou declaradas não aplicáveis pelo usuário
+- [ ] Políticas externas (compliance, fiscal, segurança) cobertas, ou declaradas não aplicáveis pelo usuário
 
 Esta é uma **seção crítica** — ver `pontuacao.md`.
 
@@ -75,10 +85,10 @@ O que é: o que o sistema deve fazer, em notação EARS (ver `notacao-ears.md`).
 Perguntas-guia: Quais ações o usuário/sistema realiza? O que dispara cada ação? O que o sistema deve fazer em cada evento e em cada condição de erro?
 
 Checklist:
-- [ ] Todo RF está em notação EARS e tem um ID
+- [ ] Todo RF está em notação EARS e tem um ID `RF-xxx`
 - [ ] Fluxo principal (caminho feliz) coberto
-- [ ] Principais fluxos alternativos/erro cobertos
-- [ ] RFs referenciam as RN aplicáveis
+- [ ] Principais fluxos alternativos/erro cobertos, ou declarados inexistentes pelo usuário
+- [ ] RFs referenciam as RN aplicáveis, ou o usuário declarou que nenhuma RN se aplica
 
 Esta é uma **seção crítica**.
 
@@ -89,9 +99,9 @@ O que é: condições binárias e verificáveis que provam que um RF foi impleme
 Perguntas-guia: Como alguém, olhando o sistema pronto, saberia que este requisito funciona? O que é sucesso e o que é falha, de forma objetiva?
 
 Checklist:
-- [ ] Todo RF crítico tem pelo menos um CA associado
-- [ ] Todo CA é verificável objetivamente (dado/quando/então — sem "deve funcionar bem")
-- [ ] CAs cobrem também casos de borda relevantes (não só o caminho feliz)
+- [ ] Todo RF tem pelo menos um CA associado
+- [ ] Todo CA é verificável objetivamente (Dado/Quando/Então — sem "deve funcionar bem")
+- [ ] Casos de borda cobertos, ou declarados inexistentes pelo usuário
 
 Esta é uma **seção crítica**.
 
@@ -104,7 +114,7 @@ Perguntas-guia: Quem são as personas/papéis reais que usam isso? Qual o benef�
 Checklist:
 - [ ] Toda HU segue o formato Como/Quero/Para que
 - [ ] Toda HU referencia os RF/CA relacionados
-- [ ] Personas usadas são reais/específicas (não "usuário" genérico, quando o projeto tem mais de um papel)
+- [ ] Persona específica (papel nomeado; "usuário" genérico não basta quando há mais de um papel)
 
 ## 9. Requisitos Não Funcionais
 
@@ -113,10 +123,10 @@ O que é: performance, segurança, disponibilidade, escalabilidade, usabilidade,
 Perguntas-guia: Existe expectativa de tempo de resposta, volume de usuários simultâneos ou pico de uso? Há exigência de disponibilidade (SLA)? Há dado sensível/pessoal envolvido (LGPD)? Há exigência de acessibilidade ou idiomas?
 
 Checklist:
-- [ ] Performance/capacidade abordada (ou declarada como não aplicável, com justificativa)
-- [ ] Segurança/privacidade abordada quando há dado sensível
-- [ ] Disponibilidade/SLA abordado quando o projeto é crítico para operação
-- [ ] Usabilidade/acessibilidade abordada quando há interface de usuário
+- [ ] Performance/capacidade abordada, ou declarada não aplicável pelo usuário
+- [ ] Segurança/privacidade abordada, ou declarada não aplicável pelo usuário
+- [ ] Disponibilidade/SLA abordada, ou declarada não aplicável pelo usuário
+- [ ] Usabilidade/acessibilidade abordada, ou declarada não aplicável pelo usuário
 
 ## 10. Dependências
 
@@ -125,9 +135,9 @@ O que é: sistemas, times, integrações, decisões externas ou entregas de terc
 Perguntas-guia: Este projeto depende de outro sistema/API já existente? Depende de outro time entregar algo antes? Depende de uma decisão de negócio ainda não tomada? Depende de fornecedor externo?
 
 Checklist:
-- [ ] Dependências técnicas (sistemas/integrações) listadas
-- [ ] Dependências organizacionais (outros times/áreas) listadas
-- [ ] Para cada dependência crítica, o impacto de atraso está registrado
+- [ ] Dependências técnicas (sistemas/integrações) listadas, ou declaradas inexistentes pelo usuário
+- [ ] Dependências organizacionais (outros times/áreas) listadas, ou declaradas inexistentes pelo usuário
+- [ ] Impacto de atraso registrado para cada dependência crítica, ou declarado que não há dependência crítica
 
 ## 11. Riscos
 
@@ -136,21 +146,23 @@ O que é: o que pode dar errado, sua probabilidade/impacto e o plano de mitigaç
 Perguntas-guia: O que, se acontecer, compromete o prazo ou a meta SMART? Existe risco regulatório, de segurança, de adoção pelo usuário, técnico? Qual a mitigação ou plano de contingência para os riscos mais relevantes?
 
 Checklist:
-- [ ] Ao menos os riscos de maior impacto potencial identificados
-- [ ] Probabilidade/impacto qualificados (mesmo que de forma simples: alto/médio/baixo)
-- [ ] Mitigação ou contingência registrada para os riscos de impacto alto
+- [ ] Riscos de maior impacto potencial identificados, ou o usuário declarou que não vê risco relevante
+- [ ] Probabilidade e impacto qualificados (alto/médio/baixo) para cada risco listado
+- [ ] Mitigação ou contingência registrada para cada risco de impacto alto, ou declarado que não há risco de impacto alto
 
 Esta é uma **seção crítica**.
 
 ## 12. Matriz de Rastreabilidade
 
-O que é: uma tabela que cruza `RN` → `RF` → `CA` → `HU`, mostrando que nada foi especificado sem sustentação e nada foi implementado sem exigência. Não é levantada por perguntas — é **derivada** das seções 5 a 8 depois que elas existem.
+O que é: uma tabela que cruza `RN` → `RF` → `CA` → `HU`. Não é levantada por perguntas — é derivada das seções 5 a 8 na Fase 5. Não entra no score.
 
-Checklist:
-- [ ] Todo RF tem RN de origem (quando aplicável) e ao menos um CA
+Checklist de entrega (não some no Score Global):
+- [ ] Todo RF tem ao menos um CA e uma HU
 - [ ] Todo CA está vinculado a um RF
-- [ ] Toda HU está vinculada a pelo menos um RF/CA
-- [ ] Nenhum ID órfão (criado mas nunca referenciado, ou referenciado mas nunca criado)
+- [ ] Toda HU está vinculada a pelo menos um RF
+- [ ] RN de origem aparece quando existe; nenhum ID órfão
+
+Se faltar CA ou HU, não invente o item. Volte ao questionamento se ainda houver rodada, ou registre a ausência como premissa — só depois do aceite explícito das lacunas — e mostre a pendência na matriz.
 
 ## 13. Pontuação de Prontidão
 

@@ -37,4 +37,9 @@ E em Riscos, um ponto de alto impacto:
 
 - Não repita uma pergunta cuja resposta já está em `.descoberta/<slug>/descoberta.md` — isso é sinal de que a Fase 2 não foi lida com atenção antes de questionar.
 - Não transforme a pergunta em uma aula sobre o próprio framework ("preciso disso para calcular a Pontuação de Completude da seção 5") — o usuário não precisa da mecânica interna, só da pergunta de negócio.
-- Não aceite uma resposta vaga como se fosse suficiente ("mais ou menos", "acho que sim") para uma lacuna crítica — se a resposta não for verificável, ela continua sendo lacuna; ou peça precisão, ou registre como premissa assumida na próxima rodada.
+- Não aceite uma resposta vaga como se fosse suficiente ("mais ou menos", "acho que sim") para uma lacuna crítica — se a resposta não for verificável, ela continua sendo lacuna. Peça precisão. "Não há" / "não se aplica" só conta como PREENCHIDO quando o porte em `secoes.md` permitir.
+- Não invente CA, HU ou RN para fechar um RF órfão. Pergunte, ou deixe a pendência explícita.
+
+## Teto de rodadas
+
+A primeira leva é a rodada 1. Ao apresentar cada leva, some 1. Com a rodada já em 3 e lacuna crítica ainda aberta, não faça a quarta leva por conta própria: mostre a lista e peça que o usuário continue respondendo ou diga "aceito seguir com as lacunas" (ou equivalente inequívoco). Se ele pedir para continuar, faça uma leva extra e volte à Fase 3. Essa leva extra não se repete sozinha. Sem o aceite, a Fase 5 não começa. O detalhe do portão está em `pontuacao.md`.

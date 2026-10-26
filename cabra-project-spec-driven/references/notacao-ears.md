@@ -1,6 +1,8 @@
 # Notação EARS (em português) para Requisitos Funcionais e Critérios de Aceitação
 
-EARS (Easy Approach to Requirements Syntax) força cada requisito a ser verificável, sem ambiguidade sobre quando ele se aplica. Use estes cinco padrões. Todo `RF-xxx` e todo `CA-xxx` deve se encaixar em um deles — se não encaixar, provavelmente ainda está vago demais para ser um requisito.
+EARS (Easy Approach to Requirements Syntax) força cada requisito funcional a ser verificável, sem ambiguidade sobre quando ele se aplica. Todo `RF-xxx` usa um dos cinco padrões abaixo. Se não encaixar, ainda está vago: volte ao questionamento em vez de forçar a redação.
+
+Critério de aceitação não usa EARS. `CA-xxx` usa Dado/Quando/Então, amarrado a um RF, como na seção seguinte.
 
 ## Os cinco padrões
 
